@@ -25,7 +25,9 @@ import time
 import aiohttp
 import asyncio
 import logging
-import urlparse
+
+from urllib.parse import urlparse
+from urllib.parse import parse_qs
 
 from datetime import datetime
 
@@ -86,9 +88,9 @@ async def ddl_call_back(bot, update):  # sourcery skip: low-code-quality
     if not os.path.isdir(tmp_directory_for_each_user):
         os.makedirs(tmp_directory_for_each_user)
     filename = custom_file_name
-    parsed_custom_file_name = urlparse.urlparse(custom_file_name);
-    if 'filename' in urlparse.parse_qs(parsed_custom_file_name.query):
-       filename = urlparse.parse_qs(parsed_custom_file_name.query)['filename'][0]
+    parsed_url = urlparse(custom_file_name)
+    if 'filename' in parse_qs(parsed_url.query):
+       filename = parse_qs(parsed_url.query)['filename'][0]
     download_directory = f"{tmp_directory_for_each_user}/{filename}"
     command_to_exec = []
     async with aiohttp.ClientSession() as session:
