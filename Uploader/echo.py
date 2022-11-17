@@ -288,7 +288,7 @@ async def echo(bot, update):
                 )
             ])
         #reply_markup = InlineKeyboardMarkup(inline_keyboard)
-        reply_markup = (cb_string_video).encode("UTF-8")
+        reply_markup = cb_string_video
         await chk.delete()
 
         await bot.send_message(
