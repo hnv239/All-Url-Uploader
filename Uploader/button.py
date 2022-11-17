@@ -28,6 +28,9 @@ import asyncio
 import logging
 import subprocess
 
+from urllib.parse import urlparse
+from urllib.parse import parse_qs
+
 from pyrogram.types import *
 from datetime import datetime
 
@@ -119,7 +122,11 @@ async def youtube_dl_call_back(bot, update):
         "/" + str(update.from_user.id) + f'{random1}'
     if not os.path.isdir(tmp_directory_for_each_user):
         os.makedirs(tmp_directory_for_each_user)
-    download_directory = f"{tmp_directory_for_each_user}/{custom_file_name}"
+    filename = custom_file_name
+    parsed_url = urlparse(custom_file_name)
+    if 'filename' in parse_qs(parsed_url.query):
+       filename = parse_qs(parsed_url.query)['filename'][0]
+    download_directory = f"{tmp_directory_for_each_user}/{filename}"
 
     command_to_exec = []
     if tg_send_type == "audio":
