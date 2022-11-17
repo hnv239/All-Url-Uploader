@@ -299,8 +299,9 @@ async def echo(bot, update):
             #reply_markup=reply_markup,
             reply_to_message_id=update.id
         )
-        message.data=cb_string_video
-        await youtube_dl_call_back(bot, message)
+        bot.register_next_step_handler(message, youtube_dl_call_back)
+        #message.data=cb_string_video
+        # await youtube_dl_call_back(bot, message)
     else:
         # fallback for nonnumeric port a.k.a seedbox.io
         inline_keyboard = []
