@@ -292,7 +292,7 @@ async def echo(bot, update):
 
         await chk.delete()
 
-        await bot.send_message(
+        message = await bot.send_message(
             chat_id=update.chat.id,
             text=Translation.FORMAT_SELECTION.format(
                 Thumbnail) + "\n" + Translation.SET_CUSTOM_USERNAME_PASSWORD,
@@ -300,8 +300,8 @@ async def echo(bot, update):
 
             reply_to_message_id=update.id
         )
-        update.data = cb_string_video
-        await youtube_dl_call_back(bot, update)
+        message.data = cb_string_video
+        await youtube_dl_call_back(bot, message)
     else:
         # fallback for nonnumeric port a.k.a seedbox.io
         inline_keyboard = []
