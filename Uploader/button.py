@@ -127,7 +127,8 @@ async def youtube_dl_call_back(bot, update):
     if 'filename' in parse_qs(parsed_url.query):
        filename = parse_qs(parsed_url.query)['filename'][0]
     download_directory = f"{tmp_directory_for_each_user}/{filename}"
-    logger.info(download_directory)
+    logger.info("Debug:")
+    logger.info(filename)
 
     command_to_exec = []
     if tg_send_type == "audio":
