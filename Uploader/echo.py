@@ -40,6 +40,7 @@ from Uploader.script import Translation
 from Uploader.functions.ran_text import random_char
 from Uploader.functions.display_progress import humanbytes
 from Uploader.functions.display_progress import humanbytes
+from Uploader.button import youtube_dl_call_back
 
 logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
