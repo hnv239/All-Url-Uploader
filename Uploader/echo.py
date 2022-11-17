@@ -40,7 +40,6 @@ from Uploader.script import Translation
 from Uploader.functions.ran_text import random_char
 from Uploader.functions.display_progress import humanbytes
 from Uploader.functions.display_progress import humanbytes
-from Uploader.button import youtube_dl_call_back
 
 logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -168,7 +167,7 @@ async def echo(bot, update):
     e_response = stderr.decode().strip()
     logger.info(e_response)
     t_response = stdout.decode().strip()
-    logger.info(t_response)
+    # logger.info(t_response)
     # https://github.com/rg3/youtube-dl/issues/2630#issuecomment-38635239
     if e_response and "nonnumeric port" not in e_response:
         # logger.warn("Status : FAIL", exc.returncode, exc.output)
@@ -288,18 +287,18 @@ async def echo(bot, update):
                     callback_data=(cb_string_video).encode("UTF-8")
                 )
             ])
-        reply_markup = InlineKeyboardMarkup(inline_keyboard)
+        #reply_markup = InlineKeyboardMarkup(inline_keyboard)
+        reply_markup = (cb_string_video).encode("UTF-8")
         await chk.delete()
 
-        # await bot.send_message(
-        #     chat_id=update.chat.id,
-        #     text=Translation.FORMAT_SELECTION.format(
-        #         Thumbnail) + "\n" + Translation.SET_CUSTOM_USERNAME_PASSWORD,
-        #     reply_markup=reply_markup,
+        await bot.send_message(
+            chat_id=update.chat.id,
+            text=Translation.FORMAT_SELECTION.format(
+                Thumbnail) + "\n" + Translation.SET_CUSTOM_USERNAME_PASSWORD,
+            reply_markup=reply_markup,
 
-        #     reply_to_message_id=update.id
-        # )
-        await youtube_dl_call_back(bot, update)
+            reply_to_message_id=update.id
+        )
     else:
         # fallback for nonnumeric port a.k.a seedbox.io
         inline_keyboard = []
