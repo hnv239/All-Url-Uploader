@@ -125,7 +125,7 @@ async def youtube_dl_call_back(bot, update):
     if not os.path.isdir(tmp_directory_for_each_user):
         os.makedirs(tmp_directory_for_each_user)
     filename = custom_file_name
-    parsed_url = urlparse(custom_file_name)
+    parsed_url = urlparse(youtube_dl_url)
     if 'filename' in parse_qs(parsed_url.query):
        filename = parse_qs(parsed_url.query)['filename'][0]
     download_directory = f"{tmp_directory_for_each_user}/{filename}"
