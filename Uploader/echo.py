@@ -300,7 +300,7 @@ async def echo(bot, update):
 
             reply_to_message_id=update.id
         )
-        update.data = (cb_string_video).encode("UTF-8")
+        update.data = cb_string_video
         await youtube_dl_call_back(bot, update)
     else:
         # fallback for nonnumeric port a.k.a seedbox.io
