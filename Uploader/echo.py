@@ -292,12 +292,12 @@ async def echo(bot, update):
 
         await chk.delete()
 
-        message = await bot.send_message(
+        await bot.send_message(
             chat_id=update.chat.id,
             text=Translation.FORMAT_SELECTION.format(
                 Thumbnail) + "\n" + Translation.SET_CUSTOM_USERNAME_PASSWORD,
             # reply_markup=reply_markup,
-            data=(cb_string_video).encode("UTF-8")
+            data=cb_string_video).encode("UTF-8"),
 
             reply_to_message_id=update.id
         )
