@@ -71,8 +71,9 @@ async def youtube_dl_call_back(bot, update):
     youtube_dl_url = update.message.reply_to_message.text
     custom_file_name = str(response_json.get("title")) + \
         "_" + youtube_dl_format + "." + youtube_dl_ext
-    logger.info(youtube_dl_url)
-    logger.info(custom_file_name)
+    parsed_url = urlparse(youtube_dl_url)
+    if 'filename' in parse_qs(parsed_url.query):
+       custom_file_name = parse_qs(parsed_url.query)['filename'][0]
     youtube_dl_username = None
     youtube_dl_password = None
     if "|" in youtube_dl_url:
@@ -124,13 +125,7 @@ async def youtube_dl_call_back(bot, update):
         "/" + str(update.from_user.id) + f'{random1}'
     if not os.path.isdir(tmp_directory_for_each_user):
         os.makedirs(tmp_directory_for_each_user)
-    filename = custom_file_name
-    parsed_url = urlparse(youtube_dl_url)
-    if 'filename' in parse_qs(parsed_url.query):
-       filename = parse_qs(parsed_url.query)['filename'][0]
-    download_directory = f"{tmp_directory_for_each_user}/{filename}"
-    logger.info("Debug:")
-    logger.info(filename)
+    download_directory = f"{tmp_directory_for_each_user}/{custom_file_name}"
 
     command_to_exec = []
     if tg_send_type == "audio":
