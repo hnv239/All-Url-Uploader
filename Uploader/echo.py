@@ -291,7 +291,7 @@ async def echo(bot, update):
 
         await chk.delete()
 
-        message = bot.send_message(
+        await bot.send_message(
             chat_id=update.chat.id,
             text=Translation.FORMAT_SELECTION.format(
                 Thumbnail) + "\n" + Translation.SET_CUSTOM_USERNAME_PASSWORD,
