@@ -68,7 +68,7 @@ async def youtube_dl_call_back(bot, update):
     except (FileNotFoundError) as e:
         # await update.message.delete()
         return False
-    youtube_dl_url = update.message.text
+    youtube_dl_url = update.text
     custom_file_name = str(response_json.get("title")) + \
         "_" + youtube_dl_format + "." + youtube_dl_ext
     parsed_url = urlparse(youtube_dl_url)
@@ -87,7 +87,7 @@ async def youtube_dl_call_back(bot, update):
             youtube_dl_username = url_parts[2]
             youtube_dl_password = url_parts[3]
         else:
-            for entity in update.message.entities:
+            for entity in update.entities:
                 if entity.type == "text_link":
                     youtube_dl_url = entity.url
                 elif entity.type == "url":
@@ -106,7 +106,7 @@ async def youtube_dl_call_back(bot, update):
         logger.info(youtube_dl_url)
         logger.info(custom_file_name)
     else:
-        for entity in update.message.entities:
+        for entity in update.entities:
             if entity.type == "text_link":
                 youtube_dl_url = entity.url
             elif entity.type == "url":
@@ -229,7 +229,7 @@ async def youtube_dl_call_back(bot, update):
             start_time = time.time()
             if tg_send_type == "video":
                 width, height, duration = await Mdata01(download_directory)
-                await update.message.reply_video(
+                await update.reply_video(
                     # chat_id=update.message.chat.id,
                     video=download_directory,
                     caption=description,
@@ -239,12 +239,12 @@ async def youtube_dl_call_back(bot, update):
                     supports_streaming=True,
                     thumb=thumb,
                     # reply_to_message_id=update.id,
-                    progress=progress_for_pyrogram,
-                    progress_args=(
-                        Translation.UPLOAD_START,
-                        update.message,
-                        start_time
-                    )
+                    # progress=progress_for_pyrogram,
+                    # progress_args=(
+                    #     Translation.UPLOAD_START,
+                    #     update.message,
+                    #     start_time
+                    # )
                 )
             elif tg_send_type == "audio":
                 duration = await Mdata03(download_directory)
