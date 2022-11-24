@@ -214,6 +214,7 @@ async def youtube_dl_call_back(bot, update):
         thumb = download_location if os.path.isfile(
             download_location) else None
 
+        logger.info(description)
         if 'SexArt' in description:
             video_id = custom_file_name.split('-')[0]
             thumb_url = f"https://cdn.metartnetwork.com/94DB3D0036FC11E1B86C0800200C9A66/media/{video_id}/t_cover_{video_id}.jpg"
