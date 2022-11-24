@@ -218,7 +218,7 @@ async def youtube_dl_call_back(bot, update):
             video_id = custom_file_name.split('-')[0]
             thumb_url = f"https://cdn.metartnetwork.com/94DB3D0036FC11E1B86C0800200C9A66/media/{video_id}/t_cover_{video_id}.jpg"
             local_path = "./"
-            local_filename = url.split('/')[-1]
+            local_filename = thumb_url.split('/')[-1]
             path = local_path + local_filename
             r = requests.get(thumb_url, allow_redirects=True)
             open(path, 'wb').write(r.content)
