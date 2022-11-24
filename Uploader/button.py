@@ -27,6 +27,7 @@ import shutil
 import asyncio
 import logging
 import subprocess
+import requests
 
 from urllib.parse import urlparse
 from urllib.parse import parse_qs
@@ -212,6 +213,17 @@ async def youtube_dl_call_back(bot, update):
         download_location = f"{Config.DOWNLOAD_LOCATION}/{update.from_user.id}.jpg"
         thumb = download_location if os.path.isfile(
             download_location) else None
+
+        if 'SexArt' in description
+            video_id = custom_file_name.split('-')[0]
+            thumb_url = f"https://cdn.metartnetwork.com/94DB3D0036FC11E1B86C0800200C9A66/media/{video_id}/t_cover_{video_id}.jpg"
+            local_path = "./"
+            local_filename = url.split('/')[-1]
+            path = local_path + local_filename
+            r = requests.get(thumb_url, allow_redirects=True)
+            open(path, 'wb').write(r.content)
+            thumb = path if os.path.isfile(
+                path) else thumb
 
         if ((file_size > Config.TG_MAX_FILE_SIZE)):
             await update.message.edit_caption(
